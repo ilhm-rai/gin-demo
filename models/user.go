@@ -2,6 +2,7 @@ package models
 
 import (
 	"github.com/asaskevich/govalidator"
+	"github.com/ilhm-rai/go-middleware/helpers"
 	"gorm.io/gorm"
 )
 
@@ -15,5 +16,12 @@ type User struct {
 
 func (u *User) BeforeCreate(tx *gorm.DB) (err error) {
 	_, err = govalidator.ValidateStruct(u)
-	return err
+
+	if err != nil {
+		return
+	}
+
+	u.Password = helpers.HashPass(u.Password)
+
+	return
 }
