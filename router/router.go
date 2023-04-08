@@ -3,15 +3,22 @@ package router
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/ilhm-rai/go-middleware/controllers"
+	"github.com/ilhm-rai/go-middleware/middlewares"
 )
 
 func Start() *gin.Engine {
 	engine := gin.Default()
 
-	router := engine.Group("/users")
+	userRouter := engine.Group("/users")
 	{
-		router.POST("/register", controllers.UserRegister)
-		router.POST("/login", controllers.UserLogin)
+		userRouter.POST("/register", controllers.UserRegister)
+		userRouter.POST("/login", controllers.UserLogin)
+	}
+
+	productRouter := engine.Group("/products")
+	{
+		productRouter.Use(middlewares.Authentication())
+		productRouter.POST("/", controllers.CreateProduct)
 	}
 
 	return engine
