@@ -70,3 +70,19 @@ func UpdateProduct(c *gin.Context) {
 
 	c.JSON(http.StatusOK, Product)
 }
+
+func FindProducts(c *gin.Context) {
+	db := database.GetDB()
+	Products := []models.Product{}
+	err := db.Find(&Products).Error
+	
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error":   "Internal Server Error",
+			"message": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, Products)
+}
