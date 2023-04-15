@@ -32,6 +32,12 @@ func ConnectDB() {
 	}
 
 	fmt.Println("successfully connected to database")
+	db.Debug().Exec(`
+	DO $$ BEGIN
+		CREATE TYPE role_gm AS ENUM ('ADMIN', 'USER');
+	EXCEPTION
+		WHEN duplicate_object THEN null;
+	END $$;`)
 	db.Debug().AutoMigrate(models.User{}, models.Product{})
 }
 
