@@ -17,12 +17,14 @@ func ProductAuthorization() gin.HandlerFunc {
 		if err != nil {
 			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 				"error":   "Bad Request",
-				"message": "invalid parameter",
+				"message": "Invalid parameter",
 			})
 			return
 		}
 		userData := ctx.MustGet("userData").(jwt.MapClaims)
 		userId := uint(userData["id"].(float64))
+		role := userData["role"].(string)
+
 		Product := models.Product{}
 
 		err = db.Select("user_id").First(&Product, uint(productId)).Error
@@ -35,7 +37,7 @@ func ProductAuthorization() gin.HandlerFunc {
 			return
 		}
 
-		if Product.UserID != userId {
+		if role == "USER" && Product.UserID != userId {
 			ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
 				"error":   "Unauthorized",
 				"message": "You are not allowed to access this data",

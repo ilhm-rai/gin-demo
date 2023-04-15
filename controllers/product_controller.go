@@ -73,9 +73,18 @@ func UpdateProduct(c *gin.Context) {
 
 func FindProducts(c *gin.Context) {
 	db := database.GetDB()
+	userData := c.MustGet("userData").(jwt.MapClaims)
+	userID := uint(userData["id"].(float64))
+	role := userData["role"].(string)
 	Products := []models.Product{}
-	err := db.Find(&Products).Error
-	
+
+	var err error
+	if role == "ADMIN" {
+		err = db.Find(&Products).Error
+	} else {
+		err = db.Where("user_id = ?", userID).Find(&Products).Error
+	}
+
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error":   "Internal Server Error",
@@ -85,4 +94,20 @@ func FindProducts(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, Products)
+}
+
+func DeleteProduct(c *gin.Context) {
+	db := database.GetDB()
+	productId, _ := strconv.Atoi(c.Param("productId"))
+	err := db.Delete(&models.Product{}, productId).Error
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error":   "Internal Server Error",
+			"message": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusNoContent, nil)
 }

@@ -6,6 +6,39 @@ email=admin@gmail.com
 &role=ADMIN
 &password=12345678
 
+### ADMIN
+POST http://localhost:8080/users/login HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+
+email=admin@gmail.com
+&password=12345678
+
+### ADMIN
+POST http://localhost:8080/products HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlkIjozLCJyb2xlIjoiQURNSU4ifQ.DkCtL0NPVmZtY2RfRRtbJH7DrYZSH1f0SnQBSOCJhHk
+
+title=Laptop
+&description=Lorem ipsum
+
+### ADMIN
+GET http://localhost:8080/products HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlkIjozLCJyb2xlIjoiQURNSU4ifQ.DkCtL0NPVmZtY2RfRRtbJH7DrYZSH1f0SnQBSOCJhHk
+
+### ADMIN
+PUT http://localhost:8080/products/1 HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlkIjozLCJyb2xlIjoiQURNSU4ifQ.DkCtL0NPVmZtY2RfRRtbJH7DrYZSH1f0SnQBSOCJhHk
+
+title=Smart phone
+&description=Lorem ipsum.
+
+### ADMIN
+DELETE http://localhost:8080/products/5 HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlkIjozLCJyb2xlIjoiQURNSU4ifQ.DkCtL0NPVmZtY2RfRRtbJH7DrYZSH1f0SnQBSOCJhHk
+
 ###
 POST http://localhost:8080/users/register HTTP/1.1
 Content-Type: application/json
@@ -21,27 +54,31 @@ Content-Type: application/json
 POST http://localhost:8080/users/login HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
 
-email=admin@gmail.com
+email=user@gmail.com
 &password=12345678
 
-###
+### USER
 POST http://localhost:8080/products HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyZGlAZ21haWwuY29tIiwiaWQiOjF9.DJ9K-teRTQA6GKnOzRjPkwyUL7-ZDwL4_XfgKdpfjOA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZ21haWwuY29tIiwiaWQiOjQsInJvbGUiOiJVU0VSIn0.2-hlLUk4hb-YKE7aomgMAVeIHLkBTpsh9qjiw9x08uc
 
-title=Phone
+title=Camera
 &description=Lorem ipsum
 
-###
+### USER
 GET http://localhost:8080/products HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlkIjozLCJyb2xlIjoiQURNSU4ifQ.DkCtL0NPVmZtY2RfRRtbJH7DrYZSH1f0SnQBSOCJhHk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZ21haWwuY29tIiwiaWQiOjQsInJvbGUiOiJVU0VSIn0.2-hlLUk4hb-YKE7aomgMAVeIHLkBTpsh9qjiw9x08uc
 
-
-###
-PUT http://localhost:8080/products/1 HTTP/1.1
+### USER
+PUT http://localhost:8080/products/4 HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyZGlAZ21haWwuY29tIiwiaWQiOjF9.DJ9K-teRTQA6GKnOzRjPkwyUL7-ZDwL4_XfgKdpfjOA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZ21haWwuY29tIiwiaWQiOjQsInJvbGUiOiJVU0VSIn0.2-hlLUk4hb-YKE7aomgMAVeIHLkBTpsh9qjiw9x08uc
 
 title=Smart phone
 &description=Lorem ipsum.
+
+### USER
+DELETE http://localhost:8080/products/2 HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZ21haWwuY29tIiwiaWQiOjQsInJvbGUiOiJVU0VSIn0.2-hlLUk4hb-YKE7aomgMAVeIHLkBTpsh9qjiw9x08uc
