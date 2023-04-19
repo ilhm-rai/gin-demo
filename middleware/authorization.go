@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"errors"
 	"net/http"
 	"strconv"
 
@@ -9,7 +8,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/ilhm-rai/go-middleware/model"
 	"github.com/ilhm-rai/go-middleware/service"
-	"gorm.io/gorm"
 )
 
 func ProductAuthorization(service service.ProductService) gin.HandlerFunc {
@@ -17,8 +15,8 @@ func ProductAuthorization(service service.ProductService) gin.HandlerFunc {
 		productId, err := strconv.Atoi(c.Param("productId"))
 		if err != nil {
 			c.AbortWithStatusJSON(http.StatusBadRequest, model.WebResponseMessage{
-				Code: http.StatusBadRequest,
-				Status: "Bad Request",
+				Code:    http.StatusBadRequest,
+				Status:  "Bad Request",
 				Message: "Invalid parameter",
 			})
 			return
@@ -27,13 +25,13 @@ func ProductAuthorization(service service.ProductService) gin.HandlerFunc {
 		userData := c.MustGet("userData").(jwt.MapClaims)
 		userId := uint(userData["id"].(float64))
 		role := userData["role"].(string)
-		product, err := service.FindProduct(uint(productId))
+		product, _ := service.FindProduct(uint(productId))
 
-		if err != nil && errors.Is(err, gorm.ErrRecordNotFound) {
-			c.JSON(http.StatusNotFound, model.WebResponseMessage{
+		if product == nil {
+			c.AbortWithStatusJSON(http.StatusNotFound, model.WebResponseMessage{
 				Code:    http.StatusNotFound,
 				Status:  "Not Found",
-				Message: err.Error(),
+				Message: "Product not found",
 			})
 			return
 		}

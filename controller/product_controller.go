@@ -77,7 +77,7 @@ func (controller *ProductController) UpdateProduct(c *gin.Context) {
 
 	err := validation.Validate(request)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, model.WebResponseMessage{
+		c.AbortWithStatusJSON(http.StatusBadRequest, model.WebResponseMessage{
 			Code:    http.StatusBadRequest,
 			Status:  "Bad Request",
 			Message: err.Error(),
@@ -93,7 +93,7 @@ func (controller *ProductController) UpdateProduct(c *gin.Context) {
 	err = controller.ProductService.UpdateProduct(uint(productId), request)
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, model.WebResponseMessage{
+		c.AbortWithStatusJSON(http.StatusInternalServerError, model.WebResponseMessage{
 			Code:    http.StatusInternalServerError,
 			Status:  "Internal Server Error",
 			Message: err.Error(),
@@ -123,7 +123,7 @@ func (controller *ProductController) FindProducts(c *gin.Context) {
 	}
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, model.WebResponseMessage{
+		c.AbortWithStatusJSON(http.StatusInternalServerError, model.WebResponseMessage{
 			Code:    http.StatusInternalServerError,
 			Status:  "Internal Server Error",
 			Message: err.Error(),
@@ -143,7 +143,7 @@ func (controller *ProductController) FindProduct(c *gin.Context) {
 	productId, err := strconv.Atoi(c.Param("productId"))
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, model.WebResponseMessage{
+		c.AbortWithStatusJSON(http.StatusBadRequest, model.WebResponseMessage{
 			Code:    http.StatusBadRequest,
 			Status:  "Bad Request",
 			Message: err.Error(),
@@ -154,7 +154,7 @@ func (controller *ProductController) FindProduct(c *gin.Context) {
 	product, err := controller.ProductService.FindProduct(uint(productId))
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, model.WebResponseMessage{
+		c.AbortWithStatusJSON(http.StatusInternalServerError, model.WebResponseMessage{
 			Code:    http.StatusInternalServerError,
 			Status:  "Internal Server Error",
 			Message: err.Error(),
@@ -174,7 +174,7 @@ func (controller *ProductController) DeleteProduct(c *gin.Context) {
 	err := controller.ProductService.DeleteProduct(uint(productId))
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, model.WebResponseMessage{
+		c.AbortWithStatusJSON(http.StatusInternalServerError, model.WebResponseMessage{
 			Code:    http.StatusInternalServerError,
 			Status:  "Internal Server Error",
 			Message: err.Error(),

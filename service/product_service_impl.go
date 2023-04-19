@@ -25,32 +25,32 @@ func (service *productServiceImpl) UpdateProduct(id uint, request model.UpdatePr
 	return
 }
 
-func (service *productServiceImpl) FindProduct(productId uint) (product model.ProductResponse, err error) {
-	productEntity, err := service.ProductRepository.FindById(productId)
+func (service *productServiceImpl) FindProduct(id uint) (response *model.ProductResponse, err error) {
+	product, err := service.ProductRepository.FindById(id)
 
 	if err != nil {
-		return
+		return nil, err
 	}
 
-	product = model.ProductResponse{
-		ID:          productEntity.ID,
-		Title:       productEntity.Title,
-		Description: productEntity.Description,
-		UserID:      productEntity.UserID,
+	response = &model.ProductResponse{
+		ID:          product.ID,
+		Title:       product.Title,
+		Description: product.Description,
+		UserID:      product.UserID,
 	}
 
-	return
+	return response, nil
 }
 
-func (service *productServiceImpl) FindProductsByUserId(userId uint) (products []model.ProductResponse, err error) {
-	productsEntity, err := service.ProductRepository.FindByUserId(userId)
+func (service *productServiceImpl) FindProductsByUserId(userId uint) (response []model.ProductResponse, err error) {
+	products, err := service.ProductRepository.FindByUserId(userId)
 
 	if err != nil {
 		return
 	}
 
-	for _, product := range productsEntity {
-		products = append(products, model.ProductResponse{
+	for _, product := range products {
+		response = append(response, model.ProductResponse{
 			ID:          product.ID,
 			Title:       product.Title,
 			Description: product.Description,
@@ -61,15 +61,15 @@ func (service *productServiceImpl) FindProductsByUserId(userId uint) (products [
 	return
 }
 
-func (service *productServiceImpl) FindProducts() (products []model.ProductResponse, err error) {
-	productsEntity, err := service.ProductRepository.FindAll()
+func (service *productServiceImpl) FindProducts() (response []model.ProductResponse, err error) {
+	products, err := service.ProductRepository.FindAll()
 
 	if err != nil {
 		return
 	}
 
-	for _, product := range productsEntity {
-		products = append(products, model.ProductResponse{
+	for _, product := range products {
+		response = append(response, model.ProductResponse{
 			ID:          product.ID,
 			Title:       product.Title,
 			Description: product.Description,

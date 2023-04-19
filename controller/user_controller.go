@@ -52,7 +52,7 @@ func (controller *UserController) UserRegister(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusConflict, model.WebResponseMessage{
 			Code:    http.StatusConflict,
 			Status:  "Conflict",
-			Message: "email already registered",
+			Message: "Email already registered",
 		})
 		return
 	}

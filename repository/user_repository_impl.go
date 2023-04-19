@@ -1,7 +1,6 @@
 package repository
 
 import (
-	"github.com/ilhm-rai/go-middleware/config"
 	"github.com/ilhm-rai/go-middleware/entity"
 	"gorm.io/gorm"
 )
@@ -11,19 +10,13 @@ type userRepositoryImpl struct {
 }
 
 func (repository *userRepositoryImpl) FindByEmail(email string) (user entity.User, err error) {
-	ctx, cancel := config.NewPostgresContext()
-	defer cancel()
-
-	err = repository.DB.WithContext(ctx).Where("email = ?", email).First(&user).Error
-
+	err = repository.DB.Where("email = ?", email).First(&user).Error
 	return
 }
 
 func (repository *userRepositoryImpl) Insert(user entity.User) (id uint, err error) {
-	ctx, cancel := config.NewPostgresContext()
-	defer cancel()
 
-	err = repository.DB.WithContext(ctx).Create(&user).Error
+	err = repository.DB.Create(&user).Error
 	return user.ID, err
 }
 

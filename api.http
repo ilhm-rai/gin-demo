@@ -3,8 +3,8 @@ POST http://localhost:8080/users/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "user@gmail.com",
-  "full_name": "user",
+  "email": "test@gmail.com",
+  "full_name": "test",
   "role": "USER",
   "password": "12345678"
 }
@@ -14,7 +14,7 @@ POST http://localhost:8080/users/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "user@gmail.com",
+  "email": "test1@gmail.com",
   "password": "12345678"
 }
 
@@ -31,10 +31,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZ
 ###
 GET http://localhost:8080/products HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZ21haWwuY29tIiwiaWQiOjQsInJvbGUiOiJVU0VSIn0.2-hlLUk4hb-YKE7aomgMAVeIHLkBTpsh9qjiw9x08uc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QxQGdtYWlsLmNvbSIsImlkIjoyNywicm9sZSI6IlVTRVIifQ.spjQWK4EFFlRa-zRiZdkR43-FfvJ0eiRiDKKJCbZE0k
 
 ###
-GET http://localhost:8080/products/7 HTTP/1.1
+GET http://localhost:8080/products/101 HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZ21haWwuY29tIiwiaWQiOjQsInJvbGUiOiJVU0VSIn0.2-hlLUk4hb-YKE7aomgMAVeIHLkBTpsh9qjiw9x08uc
 

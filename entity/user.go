@@ -21,6 +21,7 @@ type User struct {
 	Products []Product `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL"`
 }
 
-func (u *User) BeforeCreate(tx *gorm.DB) {
+func (u *User) BeforeCreate(tx *gorm.DB) (err error) {
 	u.Password = helper.HashPass(u.Password)
+	return
 }
