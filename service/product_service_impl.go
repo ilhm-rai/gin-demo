@@ -102,8 +102,8 @@ func (service *productServiceImpl) CreateProduct(request model.CreateProductRequ
 	return
 }
 
-func NewProductService(repository *repository.ProductRepository) ProductService {
+func NewProductService(productRepository *repository.ProductRepository) ProductService {
 	return &productServiceImpl{
-		ProductRepository: *repository,
+		ProductRepository: *productRepository,
 	}
 }
